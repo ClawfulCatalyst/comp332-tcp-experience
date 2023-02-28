@@ -69,9 +69,8 @@ class WebProxy():
         if host in self.web_cache:
             print(self.web_cache[host][1])
             request = (
-                request[:len(request)-4] + find('Last-Modified:') > '\r\nIf-Modified-Since: ' + self.web_cache[host][1] + request[len(request)-4:]
+                request[:len(request)-4] + '\r\nIf-Modified-Since: ' + self.web_cache[host][1] + request[len(request)-4:]
                   )
-        
         
         # open connection
         try:
@@ -93,7 +92,6 @@ class WebProxy():
 
         # If response contains "304 Not Modified", return http response from cache
         if response.find('304 Not Modified') > 0:
-            print("Repeat! Sending Cache")
             response = self.web_cache[host][0]
 
         # Parse "last modified" from Response and add to Cache
