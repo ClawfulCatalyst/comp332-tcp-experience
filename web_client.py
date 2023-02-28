@@ -44,6 +44,8 @@ class WebClient:
         # check if has http at start
         if self.url[:7]=="http://":
             self.url = self.url[7:]
+        elif self.url[:8]=="https://":
+            self.url = self.url[8:]
 
         # split url into host and path
         spl = self.url.split('/')
@@ -52,7 +54,9 @@ class WebClient:
 
         # prepare request
         req = ("GET " + urlpath + " HTTP/1.1\r\nHost: " 
-            + urlhost + "\r\nConnection: close \r\n\r\n")
+            + urlhost + "\r\n\r\n")
+        
+        # \r\nConnection: close 
 
         print("req: " + req)
         proxy_sock.sendall(req.encode('utf-8'))
